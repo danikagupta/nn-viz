@@ -75,6 +75,10 @@ def visualize_architecture_with_weights(model):
 def main():
     st.title("Visualizing Neural Network Training with PyTorch and Streamlit")
 
+    # Reinitialize weights button
+    if 'model' not in st.session_state:
+        st.session_state.model = None
+
     # User input for training data using Streamlit data editor
     st.sidebar.subheader("Input Training Data")
     data = st.sidebar.data_editor(
@@ -94,10 +98,11 @@ def main():
     # Create model, loss, and optimizer
     model = SimpleNN()
     criterion = nn.MSELoss()
-    optimizer = optim.SGD(model.parameters(), lr=0.1)
+    learning_rate = st.sidebar.slider('Learning Rate', 0.001, 1.0, 0.1, step=0.01)
+    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
     # Training loop
-    num_epochs = st.sidebar.slider('Number of Epochs', 1, 100, 10)
+    num_epochs = 10
     losses = []
 
     # Training the model
@@ -135,6 +140,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
