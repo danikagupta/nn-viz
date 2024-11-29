@@ -152,11 +152,13 @@ def main():
     # Model setup
     model = SimpleNN()
     criterion = nn.MSELoss()
-    learning_rate = st.sidebar.slider('Learning Rate', 0.001, 1.0, 0.01, step=0.01)  # Changed default to 0.01
+    #learning_rate = st.sidebar.slider('Learning Rate', 0.0001, 0.01, 0.001, step=0.001)  # Changed default to 0.01
+    learning_rate=st.sidebar.number_input('Learning rate',value=0.0001, step=0.00001, format="%0.5f")
+    #st.sidebar.text(f"Learning rate: {learning_rate}")
     optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
     # Change threshold slider
-    change_threshold = st.sidebar.slider('Weight Change Threshold (%)', 1, 10, 1, step=1)
+    change_threshold = st.sidebar.slider('Weight Change Threshold (%)', 1, 5, 1, step=1)
 
     # Training loop
     num_epochs = 10
